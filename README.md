@@ -4,7 +4,7 @@
 
 This project demonstrates Infrastructure as Code (IaC) using Terraform to provision AWS infrastructure from scratch.
 
-The infrastructure includes:
+The infrastructure is created using Terraform and includes:
 
 - Custom VPC
 - Public Subnet
@@ -14,112 +14,41 @@ The infrastructure includes:
 - Security Group
 - EC2 Instance
 
-The project follows Terraform best practices using reusable variables, outputs, and Infrastructure as Code principles.
+The project uses Terraform variables and outputs to make the infrastructure configurable and easier to manage.
 
 ---
 
 ## Architecture
 
-```
-                AWS Cloud
-                    │
-             Custom VPC
-                    │
-            Public Subnet
-                    │
-         Internet Gateway
-                    │
-            Route Table
-                    │
-     Route Table Association
-                    │
-           Security Group
-                    │
-             EC2 Instance
-```
-
----
-
-## Project Structure
-
-```
-terraform-aws-ec2/
-│
-├── provider.tf
-├── variables.tf
-├── terraform.tfvars
-├── main.tf
-├── outputs.tf
-├── README.md
-└── .gitignore
-```
-
----
-
-## Technologies Used
-
-- Terraform
-- AWS EC2
-- AWS VPC
-- AWS Subnet
-- Internet Gateway
-- Route Tables
-- Security Groups
-- Git
-- GitHub
-
----
-
-## Terraform Workflow
-
-```bash
-terraform init
-terraform fmt
-terraform validate
-terraform plan
-terraform apply
-terraform output
-terraform destroy
-```
-
----
-
-## Resources Created
-
-- Custom VPC
-- Public Subnet
-- Internet Gateway
-- Route Table
-- Route Table Association
-- Security Group
-- EC2 Instance
-
----
-
-## Skills Demonstrated
-
-- Infrastructure as Code (IaC)
-- AWS Networking
-- Terraform State Management
-- Resource Dependencies
-- Git Version Control
-- Cloud Infrastructure Automation
-
----
-
-## Future Enhancements
-
-- Auto Scaling Group
-- Application Load Balancer
-- Remote Backend (S3)
-- DynamoDB State Locking
-- Terraform Modules
-- CI/CD using GitHub Actions
-
----
-
-## Author
-
-**Divya Kesharwani**
-
-Linux System Administrator | AWS | DevOps | Terraform | Docker | Kubernetes
+```text
+                         AWS Cloud
+                             |
+                    +----------------+
+                    |   Custom VPC   |
+                    |  10.0.0.0/16   |
+                    +--------+-------+
+                             |
+                    +--------v-------+
+                    | Public Subnet  |
+                    |  10.0.1.0/24   |
+                    |  ap-south-1a   |
+                    +--------+-------+
+                             |
+              +--------------+--------------+
+              |                             |
+      +-------v--------+            +-------v--------+
+      | Internet       |            |  Route Table   |
+      | Gateway        |            |  0.0.0.0/0     |
+      +----------------+            +----------------+
+                                             |
+                                      +------v------+
+                                      | Security    |
+                                      | Group       |
+                                      | SSH: 22     |
+                                      | HTTP: 80    |
+                                      +------+------+
+                                             |
+                                      +------v------+
+                                      | EC2 Instance |
+                                      |   t2.micro   |
+                                      +-------------+
